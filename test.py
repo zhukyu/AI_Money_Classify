@@ -15,8 +15,8 @@ import sys
 
 cap = cv2.VideoCapture(0)
 
-# Dinh nghia class
-class_name = ['00000','10000','20000','50000']
+# Dinh nghia class2
+class_name = ['00000','10000', '20000', '50000']
 
 def get_model():
     model_vgg16_conv = VGG16(weights='imagenet', include_top=False)
@@ -45,7 +45,7 @@ def get_model():
 
 # Load weights model da train
 my_model = get_model()
-my_model.load_weights("weights-19-1.00.hdf5")
+my_model.load_weights("Model/weights-18-0.91.hdf5")
 
 while(True):
     # Capture frame-by-frame
@@ -57,6 +57,8 @@ while(True):
     image_org = cv2.resize(image_org, dsize=None,fx=0.5,fy=0.5)
     # Resize
     image = image_org.copy()
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
     image = cv2.resize(image, dsize=(128, 128))
     image = image.astype('float')*1./255
     # Convert to tensor

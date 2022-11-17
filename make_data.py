@@ -17,13 +17,15 @@ while(True):
     ret, frame = cap.read()
     if not ret:
         continue
-    frame = cv2.resize(frame, dsize=None,fx=0.3,fy=0.3)
+    frame = cv2.resize(frame, dsize=None,fx=0.5,fy=0.5)
+    # frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # frame_gray = cv2.cvtColor(frame_gray, cv2.COLOR_GRAY2BGR)
 
     # Hiển thị
     cv2.imshow('frame',frame)
 
     # Lưu dữ liệu
-    if i>=60:
+    if i>=60 and i<=360:
         print("Số ảnh capture = ",i-60)
         # Tạo thư mục nếu chưa có
         if not os.path.exists('data/' + str(label)):

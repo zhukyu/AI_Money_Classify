@@ -63,7 +63,7 @@ def load_data():
 
     return pixels, labels
 
-#save_data()
+save_data()
 X,y = load_data()
 #random.shuffle(X)
 X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=100)
@@ -88,7 +88,7 @@ def get_model():
     x = Dropout(0.5)(x)
     x = Dense(4096, activation='relu', name='fc2')(x)
     x = Dropout(0.5)(x)
-    x = Dense(4, activation='softmax', name='predictions')(x)
+    x = Dense(3, activation='softmax', name='predictions')(x)
 
     # Compile
     my_model = Model(inputs=input, outputs=x)
@@ -113,10 +113,10 @@ aug = ImageDataGenerator(rotation_range=20, zoom_range=0.1,
 aug_val = ImageDataGenerator(rescale=1./255)
 
 vgghist=vggmodel.fit_generator(aug.flow(X_train, y_train, batch_size=64),
-                               epochs=50,# steps_per_epoch=len(X_train)//64,
-                               validation_data=aug.flow(X_test,y_test,
-                               batch_size=64),
-                               callbacks=callbacks_list)
+    epochs=20,# steps_per_epoch=len(X_train)//64,
+    validation_data=aug.flow(X_test,y_test,
+    batch_size=64),
+    callbacks=callbacks_list)
 
 vggmodel.save("vggmodel.h5")
 
